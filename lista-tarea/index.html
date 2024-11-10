@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de tareas</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 110px);
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .task:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .task button {
+            background-color: #ff4c4c;
+            padding: 8px 12px;
+            border-radius: 5px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .task button:hover {
+            background-color: #e03e3e;
+        }
+
+        .task span {
+            flex-grow: 1;
+            text-align: left;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de tareas</h1>
+
+    <input type="text" id="task-input" placeholder="Escribe tu tarea">
+    <button id="add-button">Agregar</button>
+    
+    <ul id="task-list"></ul>
+
+    <script>
+        const input = document.getElementById("task-input");
+        const button = document.getElementById("add-button");
+        const taskList = document.getElementById("task-list");
+
+        button.addEventListener('click', () => {
+            const task = input.value.trim();
+
+            if (task !== "") {
+                const li = document.createElement("li");
+                li.classList.add("task");
+
+                const taskText = document.createElement("span");
+                taskText.textContent = task;
+                li.appendChild(taskText);
+
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Eliminar";
+                deleteButton.addEventListener('click', () => {
+                    taskList.removeChild(li);
+                });
+                li.appendChild(deleteButton);
+
+                taskList.appendChild(li);
+                
+                input.value = "";  // Esto limpia el campo de entrada
+            } else {
+                alert("Tarea no ingresada.");
+            }
+        });
+    </script>
+</body>
+</html>
